@@ -9,34 +9,36 @@ import { HomeController } from './controllers/HomeController.js';
 import { Routes } from './routes/Routes.js';
 
 class Index {
+  private app: Application;
   private routes: Routes;
 
-  public constructor(routes: Routes) {
+  public constructor(app: Application, routes: Routes) {
+    this.app = app;
     this.routes = routes;
   }
 
   public startServer(): void {
-    const app: Application = express();
     const PORT = process.env.PORT || 3000;
 
-    app.set('view engine', 'ejs');
-    app.set('views', path.join(process.cwd(), 'src/views'));
-    app.use(express.static('src/public'));
+    this.app.set('view engine', 'ejs');
+    this.app.set('views', path.join(process.cwd(), 'src/views'));
+    this.app.use(express.static('src/public'));
 
-    app.use(expressLayouts);
-    app.set('layout', 'layouts/app');
+    this.app.use(expressLayouts);
+    this.app.set('layout', 'layouts/app');
     
-    app.use(this.routes.initializeRoutes());
+    this.app.use(this.routes.initializeRoutes());
     
-    app.listen(PORT, () => {
+    this.app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
     });
   }
 }
 
+const app = express();
 const bookController = new BookController(new BookRepository());
 const homeController = new HomeController();
 const routes = new Routes(bookController, homeController);
-const index = new Index(routes);
+const index = new Index(app, routes);
 
 index.startServer();
