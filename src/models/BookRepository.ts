@@ -1,9 +1,17 @@
+// internal application code imports
 import { Book } from './Book.js';
 import { books } from '../data/books.js';
 
 export class BookRepository {
-  private books: Book[] = books;
+  // private properties
+  private books: Book[];
 
+  // constructor
+  public constructor() {
+    this.books = books;
+  }
+
+  // methods
   public findAll(): Book[] {
     return this.books;
   }

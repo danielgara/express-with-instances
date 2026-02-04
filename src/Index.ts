@@ -1,8 +1,10 @@
+// external libraries imports
 import type { Application } from 'express';
 import express from 'express';
 import expressLayouts from 'express-ejs-layouts';
 import path from 'path';
 
+// internal application code imports
 import { BookController } from './controllers/BookController.js';
 import { BookRepository } from './models/BookRepository.js';
 import { HomeController } from './controllers/HomeController.js';
@@ -35,10 +37,12 @@ class Index {
   }
 }
 
+// initialize dependencies
 const app = express();
 const bookController = new BookController(new BookRepository());
 const homeController = new HomeController();
 const routes = new Routes(bookController, homeController);
 const index = new Index(app, routes);
 
+// start server
 index.startServer();

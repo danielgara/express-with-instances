@@ -1,12 +1,21 @@
 export class Book {
-  constructor(
-    private id: number,
-    private title: string,
-    private category: string,
-    private price: number,
-    private stock: number
-  ) { }
+  // private properties
+  private id: number;
+  private title: string;
+  private category: string;
+  private price: number;
+  private stock: number;
 
+  // constructor
+  public constructor(id: number, title: string, category: string, price: number, stock: number) {
+    this.id = id;
+    this.title = title;
+    this.category = category;
+    this.price = price;
+    this.stock = stock;
+  }
+
+  //getters
   public getId(): number {
     return this.id;
   }
@@ -27,6 +36,7 @@ export class Book {
     return this.stock;
   }
 
+  //setters
   public setId(id: number): void {
     this.id = id;
   }

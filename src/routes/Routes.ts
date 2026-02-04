@@ -1,17 +1,22 @@
+// external libraries imports
 import { Router } from 'express';
 
+// internal application code imports
 import { BookController } from '../controllers/BookController.js';
 import { HomeController } from '../controllers/HomeController.js';
 
 export class Routes {
+  // private dependencies
   private bookController: BookController;
   private homeController: HomeController;
 
+  // constructor
   public constructor(bookController: BookController, homeController: HomeController) {
     this.bookController = bookController;
     this.homeController = homeController;
   }
 
+  // methods
   public initializeRoutes(): Router {
     const router = Router();
 
