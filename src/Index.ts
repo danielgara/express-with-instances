@@ -11,14 +11,17 @@ import { HomeController } from './controllers/HomeController.js';
 import { Routes } from './routes/Routes.js';
 
 class Index {
+  // private dependencies
   private app: Application;
   private routes: Routes;
 
+  // constructor
   public constructor(app: Application, routes: Routes) {
     this.app = app;
     this.routes = routes;
   }
 
+  // methods
   public startServer(): void {
     const PORT = process.env.PORT || 3000;
 

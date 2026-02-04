@@ -1,3 +1,4 @@
+// internal application code imports
 import { Book } from "../models/Book.js";
 
 export const books: Book[] = [
