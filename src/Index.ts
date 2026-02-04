@@ -3,6 +3,7 @@ import type { Application } from 'express';
 import express from 'express';
 import expressLayouts from 'express-ejs-layouts';
 import path from 'path';
+import { Router } from 'express';
 
 // internal application code imports
 import { BookController } from './controllers/BookController.js';
@@ -44,7 +45,8 @@ class Index {
 const app = express();
 const bookController = new BookController(new BookRepository());
 const homeController = new HomeController();
-const routes = new Routes(bookController, homeController);
+const router = Router();
+const routes = new Routes(bookController, homeController, router);
 const index = new Index(app, routes);
 
 // start server

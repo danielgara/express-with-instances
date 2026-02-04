@@ -9,22 +9,22 @@ export class Routes {
   // private dependencies
   private bookController: BookController;
   private homeController: HomeController;
+  private router: Router;
 
   // constructor
-  public constructor(bookController: BookController, homeController: HomeController) {
+  public constructor(bookController: BookController, homeController: HomeController, router: Router) {
     this.bookController = bookController;
     this.homeController = homeController;
+    this.router = router;
   }
 
   // methods
   public initializeRoutes(): Router {
-    const router = Router();
+    this.router.get('/', this.homeController.index.bind(this.homeController));
+    this.router.get('/about', this.homeController.about.bind(this.homeController));
+    this.router.get('/books', this.bookController.index.bind(this.bookController));
+    this.router.get('/books/:id', this.bookController.show.bind(this.bookController));
 
-    router.get('/', this.homeController.index.bind(this.homeController));
-    router.get('/about', this.homeController.about.bind(this.homeController));
-    router.get('/books', this.bookController.index.bind(this.bookController));
-    router.get('/books/:id', this.bookController.show.bind(this.bookController));
-
-    return router;
+    return this.router;
   }
 }
