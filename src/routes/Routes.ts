@@ -1,19 +1,24 @@
 import { Router } from 'express';
 
 import { BookController } from '../controllers/BookController.js';
-import { BookRepository } from '../models/BookRepository.js';
 import { HomeController } from '../controllers/HomeController.js';
 
-export default class Routes {
-  static initializeRoutes(): Router {
+export class Routes {
+  private bookController: BookController;
+  private homeController: HomeController;
+
+  public constructor(bookController: BookController, homeController: HomeController) {
+    this.bookController = bookController;
+    this.homeController = homeController;
+  }
+
+  public initializeRoutes(): Router {
     const router = Router();
-    const bookController = new BookController(new BookRepository());
-    const homeController = new HomeController();
-    
-    router.get('/', homeController.index.bind(homeController));
-    router.get('/about', homeController.about.bind(homeController));
-    router.get('/books', bookController.index.bind(bookController));
-    router.get('/books/:id', bookController.show.bind(bookController));
+
+    router.get('/', this.homeController.index.bind(this.homeController));
+    router.get('/about', this.homeController.about.bind(this.homeController));
+    router.get('/books', this.bookController.index.bind(this.bookController));
+    router.get('/books/:id', this.bookController.show.bind(this.bookController));
 
     return router;
   }

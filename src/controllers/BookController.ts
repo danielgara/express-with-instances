@@ -3,7 +3,11 @@ import type { Request, Response } from 'express';
 import { BookRepository } from '../models/BookRepository.js';
 
 export class BookController {
-  public constructor(private bookRepository: BookRepository) {}
+  private bookRepository: BookRepository;
+
+  public constructor(bookRepository: BookRepository) {
+    this.bookRepository = bookRepository;
+  }
 
   public index(req: Request, res: Response): void {
     const viewData: { [key: string]: any } = {};

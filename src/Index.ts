@@ -1,11 +1,21 @@
+import type { Application } from 'express';
 import express from 'express';
 import expressLayouts from 'express-ejs-layouts';
 import path from 'path';
-import type { Application } from 'express';
-import Routes from './routes/Routes.js';
+
+import { BookController } from './controllers/BookController.js';
+import { BookRepository } from './models/BookRepository.js';
+import { HomeController } from './controllers/HomeController.js';
+import { Routes } from './routes/Routes.js';
 
 class Index {
-  static startServer(): void {
+  private routes: Routes;
+
+  public constructor(routes: Routes) {
+    this.routes = routes;
+  }
+
+  public startServer(): void {
     const app: Application = express();
     const PORT = process.env.PORT || 3000;
 
@@ -16,7 +26,7 @@ class Index {
     app.use(expressLayouts);
     app.set('layout', 'layouts/app');
     
-    app.use(Routes.initializeRoutes());
+    app.use(this.routes.initializeRoutes());
     
     app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
@@ -24,4 +34,9 @@ class Index {
   }
 }
 
-Index.startServer();
+const bookController = new BookController(new BookRepository());
+const homeController = new HomeController();
+const routes = new Routes(bookController, homeController);
+const index = new Index(routes);
+
+index.startServer();
