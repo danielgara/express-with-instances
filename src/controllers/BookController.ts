@@ -2,7 +2,7 @@
 import type { Request, Response } from 'express';
 
 // internal application code imports
-import { BookRepository } from '../models/BookRepository.js';
+import type { BookRepository } from '../models/BookRepository.js';
 
 export class BookController {
   // private dependencies
