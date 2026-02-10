@@ -1,5 +1,5 @@
 // internal application code imports
-import { Book } from './Book.js';
+import type { Book } from './Book.js';
 import { books } from '../data/books.js';
 
 export class BookRepository {

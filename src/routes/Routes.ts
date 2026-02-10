@@ -2,8 +2,8 @@
 import { Router } from 'express';
 
 // internal application code imports
-import { BookController } from '../controllers/BookController.js';
-import { HomeController } from '../controllers/HomeController.js';
+import type { BookController } from '../controllers/BookController.js';
+import type { HomeController } from '../controllers/HomeController.js';
 
 export class Routes {
   // private dependencies
